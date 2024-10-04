@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCN Network Plan Calculator</title>
+    <style>
+        /* Styling for the overall page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Styling the calculator container */
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #343a40;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Styling for the labels and inputs */
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #495057;
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        select:focus, input:focus {
+            border-color: #007bff;
+        }
+
+        /* Styling the calculate button */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        /* Styling for the result box */
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 10px;
+            font-size: 20px;
+            color: #155724;
+            display: none;  /* Hide result until calculated */
+        }
+
+        .result span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>MCN Network Plan Calculator</h1>
+
+        <label for="plan">Select Plan:</label>
+        <select id="plan" name="plan">
+            <option value="basic">Basic</option>
+            <option value="premium">Premium</option>
+        </select>
+
+        <label for="additionalRouters">Number of Additional Routers:</label>
+        <input type="number" id="additionalRouters" name="additionalRouters" min="0" value="0">
+
+        <button class="btn" onclick="calculateRevenue()">Calculate Revenue</button>
+
+        <div class="result" id="result">
+            <p>Total Routers: <span id="totalRouters"></span></p>
+            <p>Total Revenue: <span id="totalRevenue"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateRevenue() {
+            // Get selected plan and additional routers value
+            var plan = document.getElementById("plan").value;
+            var additionalRouters = parseInt(document.getElementById("additionalRouters").value);
+
+            // Define plan router count and cost based on selection
+            var routersInPlan = (plan === "basic") ? 5 : 10;  // Basic has 5 routers, Premium has 10
+            var planCost = (plan === "basic") ? 100 : 200;  // Basic costs $100, Premium costs $200
+
+            // Calculate total routers and total revenue
+            var totalRouters = routersInPlan + additionalRouters;
+            var totalRevenue = planCost + (totalRouters * 50);  // $50 per router
+
+            // Show the result
+            document.getElementById("totalRouters").innerText = totalRouters;
+            document.getElementById("totalRevenue").innerText = "$" + totalRevenue;
+
+            // Make the result box visible
+            document.getElementById("result").style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
